@@ -1,0 +1,23 @@
+<h2>THESE PEOPLE HAVE SECRETS!!!</h2>
+<h3>(What are they... must find out!)</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td><strong>Name</strong></td>
+			<td><strong>Bio</strong></td>
+			<td><strong>Secrets Known</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+		<tr>
+			<td><%= link_to user.name, user_path(user) %></td>
+			<td><%= user.bio %></td>
+			<td><%= user.known_keys_count %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
