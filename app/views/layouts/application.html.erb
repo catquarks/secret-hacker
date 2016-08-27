@@ -16,17 +16,16 @@
     <style>
 
     	body {
-    		background: black;
-    		color: #99ff00;
+    		background: white;
     	}
     		h1, h2, h3 {
-    			color: yellow;
+    			color: black;
   		}
   		p {
-  			color:yellow;
+  			color:black;
   		}
   		a {
-  			color: lime;
+  			color: blue;
   		}
 
 
@@ -38,9 +37,8 @@
 
   <ul style="display: inline;">
   	<% if logged_in? %>
-  		<%= link_to "All Users", users_path %> | 
-  		<%= link_to "All Users", users_path %> | 
-  		<%= link_to "Your Dashboard", dashboard_path %> | 
+  		<%= link_to "All Users", users_path %> |
+  		<%= link_to "Your Dashboard", dashboard_path %> |
   		<%= link_to "Logout!", logout_path %>
 		<% end %>
   	<% if !logged_in? %>
