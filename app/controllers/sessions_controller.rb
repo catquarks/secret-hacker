@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 		@user = User.find_by(name: params[:user][:name])
    # binding.pry
 		if @user && @user.authenticate(params[:user][:password])
-			session[:id] = @user.id
+			session[:user_id] = @user.id
 			redirect_to dashboard_path
 		else
 			redirect_to login_path, notice: "Username or Password not correct"

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 	has_many :keys_users
 	has_many :keys, through: :keys_users
+	has_many :secrets, through: :keys
 	has_secure_password
 
 	def known_keys_count

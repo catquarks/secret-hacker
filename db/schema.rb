@@ -16,8 +16,6 @@ ActiveRecord::Schema.define(version: 20160827185947) do
     t.string   "string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.index ["user_id"], name: "index_keys_on_user_id"
   end
 
   create_table "keys_users", id: false, force: :cascade do |t|
@@ -40,8 +38,6 @@ ActiveRecord::Schema.define(version: 20160827185947) do
     t.string   "bio"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "key_id"
-    t.index ["key_id"], name: "index_users_on_key_id"
   end
 
 end

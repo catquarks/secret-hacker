@@ -28,21 +28,32 @@
   			color: blue;
   		}
 
+      .header-link {
+        text-decoration: none;
+        color: black
+      }
 
     </style>
   </head>
 
   <body>
-  <h1>SECRET HACKER</h1>
+  <h1><a href='/' class="header-link">SECRET HACKER</a></h1>
+
+  <% if !logged_in? %>
+    <h2> Let's share some secrets...</h2>
+  <% end %>
 
   <ul style="display: inline;">
   	<% if logged_in? %>
-  		<%= link_to "All Users", users_path %> |
-  		<%= link_to "Your Dashboard", dashboard_path %> |
-  		<%= link_to "Logout!", logout_path %>
+      <%= link_to "Dashboard", dashboard_path %> |
+      <%= link_to "New Secret", new_secret_path %> |
+      <%= link_to "View Secrets", secrets_path %> |
+  		<%= link_to "Secrets Leaderboard", users_path %> |
+  		<%= link_to "Logout", logout_path %>
 		<% end %>
   	<% if !logged_in? %>
-  		<%= link_to "Login!", login_path %>
+      <%= link_to "Home", '/' %> |
+  		<%= link_to "Login!", login_path %> |
   		<%= link_to "Sign Up!", signup_path %>
 		<% end %>
 

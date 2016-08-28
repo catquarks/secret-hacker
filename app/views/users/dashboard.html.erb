@@ -1,15 +1,20 @@
+
 <h2>DASHBOARD</h2>
-<h3>Welcome, <%= current_user.name %>!</h3>
-
-<p><strong>You know <%= current_user.known_keys_count %> Secret(s)! Better find some more!!!</strong></p>
-<p><strong>Your Bio: </strong><%= current_user.bio %></p>
-
-<h3>Enter a Key:</h3>
-
-<%= form_tag '/secrets', method: 'post' do %>
-	<%= text_field_tag :q %>
-	<%= submit_tag "LOOK UP SECRET" %>
+<% if flash[:notice] %>
+	<div class="notice"><%= flash[:notice] %></div>
 <% end %>
 
-<h3>Create a New Secret</h3>
-<h3><%= link_to "Edit Your Profile", edit_profile_path %></h3>
+<h3>Welcome, <%= current_user.name %>!</h3>
+<p><strong>Your Bio: </strong><%= current_user.bio %></p>
+<%= link_to "Edit Your Profile", edit_profile_path %>
+<br>
+<br>
+<p>You know <%= current_user.known_keys_count %> Secret(s)! Better find some more!!!</p>
+<h3>Enter a Key:</h3>
+<%= form_tag '/key_entry', method: 'post' do %>
+	<%= text_field_tag :string %>
+	<%= submit_tag "Enter Key" %>
+<% end %>
+<br>
+<%= link_to "Create a new Secret", new_secret_path %> <br>
+<%= link_to "See Your Secrets", secrets_path %>

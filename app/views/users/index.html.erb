@@ -1,5 +1,4 @@
-<h2>THESE PEOPLE HAVE SECRETS!!!</h2>
-<h3>(What are they... must find out!)</h3>
+<h2>Secrets Leaderboard</h2>
 
 <table>
 	<thead>
@@ -10,14 +9,12 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @users.each do |user| %>
+		<% @users.sort_by {|user| user.known_keys_count}.reverse.each do |user| %>
 		<tr>
-			<td><%= link_to user.name, user_path(user) %></td>
+			<td><%= link_to user.name, user_path(user) %><% if session[:user_id]==user.id %> (You!)<% end %></td>
 			<td><%= user.bio %></td>
 			<td><%= user.known_keys_count %></td>
 		</tr>
 		<% end %>
 	</tbody>
 </table>
-
-

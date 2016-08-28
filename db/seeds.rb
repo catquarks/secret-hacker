@@ -9,7 +9,7 @@ user.keys << secret.key
 
 # So now I'll make lots of stuff:
 
-7.times do 
+7.times do
 	User.create(name: Faker::StarWars.character, bio: Faker::Hacker.say_something_smart, password: "password")
 	User.create(name: Faker::Pokemon.name, bio: Faker::Hacker.say_something_smart, password: "password")
 	User.create(name: Faker::Superhero.name, bio: Faker::Hacker.say_something_smart, password: "password")
@@ -17,12 +17,12 @@ end
 
 
 # Take heed! Secrets get mad when they don't have keys! Just try creating one without a key -- can't happen!
-30.times do 
-	key = Key.create(string: Faker::Company.bs)
+30.times do
+	key = Key.create(string: Faker::Space.moon)
 	Secret.create(content: Faker::StarWars.quote, subject: Faker::Internet.url, key_id: key.id)
 end
 
-users = User.all 
+users = User.all
 
 users.each do |user|
 	user.keys << Key.take(3)
