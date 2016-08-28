@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 	resources :users, only: [:index, :show, :create, :update]
 	resources :secrets, only: [:show, :index, :new, :create]
 	resources :keys, only: [:create]
-	post '/key_entry', to: 'keys#aquire'
+	post '/key_entry', to: 'keys#acquire'
 
 	root to: 'welcome#show'
 	get '/dashboard', to: 'users#dashboard', as: 'dashboard'

@@ -27,6 +27,10 @@ class SecretsController < ApplicationController
 	end
 
 	def show
+		@secret=Secret.find(params[:id])
+		unless current_user.key_ids.any?{|id| id==params[:id].to_i}
+			render 'secrets/failure'
+		end
 	end
 
 
@@ -35,6 +39,7 @@ class SecretsController < ApplicationController
 	def secret_params
 		params.require(:secret).permit(:content, :subject, :key)
 	end
+
 	def key_params
 		params.require(:key).permit(:string)
 	end

@@ -1,5 +1,6 @@
 
 <h2>DASHBOARD</h2>
+
 <% if flash[:notice] %>
 	<div class="notice"><%= flash[:notice] %></div>
 <% end %>
@@ -10,11 +11,7 @@
 <br>
 <br>
 <p>You know <%= current_user.known_keys_count %> Secret(s)! Better find some more!!!</p>
-<h3>Enter a Key:</h3>
-<%= form_tag '/key_entry', method: 'post' do %>
-	<%= text_field_tag :string %>
-	<%= submit_tag "Enter Key" %>
-<% end %>
+<%= render 'keys/enter_key' %>
 <br>
 <%= link_to "Create a new Secret", new_secret_path %> <br>
 <%= link_to "See Your Secrets", secrets_path %>

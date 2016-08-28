@@ -1,0 +1,5 @@
+<h3>Enter a new Key:</h3>
+<%= form_tag '/key_entry', method: 'post' do %>
+	<%= text_field_tag :string %>
+	<%= submit_tag "Enter Key" %>
+<% end %>
