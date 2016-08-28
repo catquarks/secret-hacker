@@ -2,8 +2,9 @@ require 'faker'
 
 # Yo! Here's a rundown:
 
-secret = Secret.create(content: "I used to be a giraffe until I died. Now I'm a skeleton.", subject: "http://giraffe.com")
-secret.key = Key.create(string: "longneck")
+key = Key.create(string: "longneck")
+secret = Secret.create(content: "I used to be a giraffe until I died. Now I'm a skeleton.", subject: "http://giraffe.com", key_id: key.id)
+
 user = User.create(name: "Jafar", bio: "I am an evil, evil man who wants to be the sultan of Agrabah.")
 user.keys << secret.key
 
