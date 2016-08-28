@@ -11,14 +11,21 @@ class SecretsController < ApplicationController
 	def new
 		@secret=Secret.new
 		@key=Key.new
+		@categories = Category.all
 	end
 
 	def create
-		@secret=Secret.new(secret_params)
+		# binding.pry
 		@key=Key.new(key_params)
+  # binding.pry
+		@secret=Secret.new(secret_params)
 		@secret.key=@key
-		if @secret.save && @key.save
+		@category = Category.find(params[:secret][:category_id])
+		@secret.category = @category
+
+		if @secret.save && @key.save && @category.save
 			current_user.keys<<@key
+
 			redirect_to :dashboard
 		else
 			render :new
@@ -28,6 +35,7 @@ class SecretsController < ApplicationController
 
 	def show
 		@secret=Secret.find(params[:id])
+		# binding.pry
 		unless current_user.key_ids.any?{|id| id==params[:id].to_i}
 			render 'secrets/failure'
 		end
@@ -37,7 +45,7 @@ class SecretsController < ApplicationController
 	private
 
 	def secret_params
-		params.require(:secret).permit(:content, :subject, :key)
+		params.require(:secret).permit(:content, :key, :category_id)
 	end
 
 	def key_params

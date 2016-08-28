@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160827185947) do
+ActiveRecord::Schema.define(version: 20160828203344) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "keys", force: :cascade do |t|
     t.string   "string"
@@ -26,9 +32,11 @@ ActiveRecord::Schema.define(version: 20160827185947) do
   create_table "secrets", force: :cascade do |t|
     t.string   "content"
     t.string   "subject"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "key_id"
+    t.integer  "category_id"
+    t.index ["category_id"], name: "index_secrets_on_category_id"
     t.index ["key_id"], name: "index_secrets_on_key_id"
   end
 
