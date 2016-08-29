@@ -1,94 +1,74 @@
 require 'faker'
 
-Category.create(name: Faker::Hipster.word)
-Category.create(name: Faker::Hipster.word)
-Category.create(name: Faker::Hipster.word)
-Category.create(name: Faker::Hipster.word)
-Category.create(name: Faker::Hipster.word)
+# creating 6 unique categories
+Category.create(name: "Whiskers")
+Category.create(name: "Paws")
+Category.create(name: "Noses")
+Category.create(name: "Tails")
+Category.create(name: "Teeth")
+Category.create(name: "Ears")
 
+# creating many unique keys
+Key.create(string: "fluff")
+Key.create(string: "floof")
+Key.create(string: "basket")
+Key.create(string: "ball")
+Key.create(string: "string")
+Key.create(string: "stick")
+Key.create(string: "birdie")
+Key.create(string: "mouse")
+Key.create(string: "beaver")
+Key.create(string: "wombat")
+Key.create(string: "sillystring")
+Key.create(string: "crepuscular")
+Key.create(string: "nocturnal")
+Key.create(string: "musicofointment")
+Key.create(string: "moosemoose")
+Key.create(string: "cowcow")
+Key.create(string: "piggy")
+Key.create(string: "dodo")
 
-# Yo! Here's a rundown:
+# creating a secret for each key
+# secret content doesn't have to be unique
+keys = Key.all 
 
-@categories = Category.all 
-
-
-5.times do 
-	key = Key.new(string: rand(2..33))
-	secret = Secret.new(content: "I used to be a giraffe until I died. Now I'm a skeleton.")
-	secret.category = @categories.sample
-	key.secret = secret 
-	key.save
+keys.each do |key| 
+	secret = Secret.new(content: Faker::StarWars.quote)
+	secret.key = key
+	secret.category = Category.all.sample
 	secret.save
 end
 
+# making some users that will end up unique
+7.times do
+	User.create(name: Faker::StarWars.character, bio: Faker::Hacker.say_something_smart, password: "password")
+	User.create(name: Faker::Pokemon.name, bio: Faker::Hacker.say_something_smart, password: "password")
+	User.create(name: Faker::Superhero.name, bio: Faker::Hacker.say_something_smart, password: "password")
+end
 
+
+# assigning users some keys
+users = User.all
+
+users.each do |user|
+	user.keys << Key.take(5)
+end
+
+
+# making one extra user
 user = User.create(name: "Jafar", bio: "I am an evil, evil man who wants to be the sultan of Agrabah.", password: "password")
 
+# making one extra secret
+secret = Secret.new(content: "I used to be a giraffe, but now I'm a skeleton.")
+key = Key.new(string: "longneck")
+secret.key = key
+secret.category = Category.all.sample
+secret.save
+# no need to save key; it was done with secret.save
+
+# assigning extra secret to extra user
+user.keys << key
 
 
 
 
-
-
-
-# So now I'll make lots of stuff:
-
-# 7.times do
-# 	User.create(name: Faker::StarWars.character, bio: Faker::Hacker.say_something_smart, password: "password")
-# 	User.create(name: Faker::Pokemon.name, bio: Faker::Hacker.say_something_smart, password: "password")
-# 	User.create(name: Faker::Superhero.name, bio: Faker::Hacker.say_something_smart, password: "password")
-# end
-
-
-# @secrets = Secret.all
-
-
-# Take heed! Secrets get mad when they don't have keys! Just try creating one without a key -- can't happen!
-# 10.times do
-# 	key = Key.new(string: Faker::Space.moon)
-# 	secret = Secret.new(content: Faker::StarWars.quote)
-# 	secret.category = @categories.sample
-	
-# 	key.secret = secret
-# 	key.save
-# 	secret.save
-# end
-
-
-
-# users = User.all
-
-# users.each do |user|
-# 	user.keys << Key.take(3)
-# end
-
-
-
-
-
-# Keys
-#     t.string   "string"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#   end
-
-#   create_table "keys_users", id: false, force: :cascade do |t|
-#     t.integer "user_id", null: false
-#     t.integer "key_id",  null: false
-#   end
-
-#   create_table "secrets", force: :cascade do |t|
-#     t.string   "content"
-#     t.string   "subject"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#     t.integer  "key_id"
-#     t.index ["key_id"], name: "index_secrets_on_key_id"
-#   end
-
-#   create_table "users", force: :cascade do |t|
-#     t.string   "name"
-#     t.string   "password_digest"
-#     t.string   "bio"
-#     t.datetime "created_at",      null: false
-#     t.datetime "updated_at",      null: false
