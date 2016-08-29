@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :edit, :update]
+	before_action :set_user, only: [:show, :update]
 	before_action :must_be_logged_in, only: [:dashboard]
 
 	def index
@@ -27,6 +27,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
+		@user=User.find(current_user.id)
 	end
 
 	def update

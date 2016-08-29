@@ -41,9 +41,9 @@ Key.create(string: "mordecai")
 
 # creating a secret for each key
 # secret content doesn't have to be unique
-keys = Key.all 
+keys = Key.all
 
-keys.each do |key| 
+keys.each do |key|
 	secret = Secret.new(content: Faker::StarWars.quote)
 	secret.key = key
 	secret.category = Category.all.sample
@@ -83,8 +83,4 @@ secret.save
 # no need to save key; it was done with secret.save
 
 # assigning extra secret to extra user
-user.keys << key
-
-
-
-
+# user.keys << key

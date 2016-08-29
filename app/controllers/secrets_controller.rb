@@ -6,11 +6,11 @@ class SecretsController < ApplicationController
 	end
 
 	def all_secrets
-		@secrets = Secret.all 
+		@secrets = Secret.all
 	end
 
 	def must_be_admin
-		unless current_user.admin 
+		unless current_user.admin
 			redirect_to secrets_path
 		end
 	end
@@ -39,11 +39,17 @@ class SecretsController < ApplicationController
 	# end
 
 	def show
-		@secret=Secret.find(params[:id])
-		# binding.pry
-		unless current_user.key_ids.any?{|id| id==params[:id].to_i}
-			render 'secrets/failure'
-		end
+		# if Secret.all.any?{|secret| secret.id==params[:id]}
+			@secret=Secret.find(params[:id])
+			unless current_user.admin
+				unless current_user.key_ids.any?{|id| id==params[:id].to_i}
+					render 'secrets/failure'
+				end
+			end
+		# else
+		# 	flash[:notice]="No such secret!"
+		# 	redirect_to :dashboard
+		# end
 	end
 
 
