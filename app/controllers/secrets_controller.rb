@@ -4,8 +4,6 @@ class SecretsController < ApplicationController
 
 
 	def index
-		@user=User.find(session[:user_id])
-		@secrets = Secret.all
 	end
 
 	def new

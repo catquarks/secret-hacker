@@ -9,4 +9,8 @@ class Secret < ApplicationRecord
 	def key_string
 		key.string
 	end
+
+	def users_count
+		self.key.users.size
+	end
 end
