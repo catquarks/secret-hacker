@@ -6,7 +6,7 @@ class Secret < ApplicationRecord
 
 
 	def key_string
-		key.string
+		self.key.string
 	end
 
 	def users_count

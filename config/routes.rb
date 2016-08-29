@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 	resources :users, only: [:index, :show, :create, :update]
+	# get '/secrets/destroy', to: 'secrets#destroy', as 'destroy'
 	resources :secrets, only: [:show, :index]
-	resources :keys, only: [:create, :new]
+	resources :keys, only: [:create, :new, :destroy]
 	resources :categories, only: [:show, :index]
 
 	post '/key_entry', to: 'keys#acquire'
@@ -18,6 +19,9 @@ Rails.application.routes.draw do
 
 	get '/profile', to: 'users#show', as: 'profile'
 	get '/profile/edit', to: 'users#edit', as: 'edit_profile'
+	get '/all_secrets', to: 'secrets#all_secrets'
+
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

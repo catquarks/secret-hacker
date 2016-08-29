@@ -1,9 +1,18 @@
 class SecretsController < ApplicationController
 	before_action :must_be_logged_in
-
-
+	before_action :must_be_admin, only: [:all_secrets, :destroy]
 
 	def index
+	end
+
+	def all_secrets
+		@secrets = Secret.all 
+	end
+
+	def must_be_admin
+		unless current_user.admin 
+			redirect_to secrets_path
+		end
 	end
 
 	# def new
@@ -36,6 +45,8 @@ class SecretsController < ApplicationController
 			render 'secrets/failure'
 		end
 	end
+
+
 
 
 	private

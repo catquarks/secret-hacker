@@ -19,6 +19,16 @@ class KeysController < ApplicationController
     end
   end
 
+  def destroy
+    # @secret = Secret.find(params[:id])
+    key = Key.find(params[:id])
+    secret = Secret.find(params[:id])
+    flash[:notice]="Secret ##{secret.id} was deleted: '#{secret.content}'"
+    key.destroy
+    secret.destroy
+    redirect_to :dashboard
+  end
+
 
   def new
     # @secret=Secret.new

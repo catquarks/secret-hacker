@@ -11,7 +11,10 @@
 	<tbody>
 		<% @users.sort_by {|user| user.known_keys_count}.reverse.each do |user| %>
 		<tr>
-			<td><%= link_to user.name, user_path(user) %><% if session[:user_id]==user.id %> (You!)<% end %></td>
+			<td><%= link_to user.name, user_path(user) %>
+				<%= " (You!)" if current_user.id==user.id %>
+				<%= "**" if user.admin %>
+				</td>
 			<td><%= user.bio %></td>
 			<td><%= user.known_keys_count %></td>
 		</tr>

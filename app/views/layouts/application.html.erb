@@ -12,25 +12,36 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
     <style>
 
     	body {
-    		background: white;
+        font-family: 'Raleway', sans-serif;
+        text-align: center;
+    		background: #5E5E5E;
     	}
     		h1, h2, h3 {
-    			color: black;
+    			color: #579981;
   		}
+      h1 .header-link {
+        color: #359C76;
+      }
   		p {
-  			color:black;
+  			color: #000;
   		}
   		a {
-  			color: blue;
+  			color: #fff;
   		}
 
       .header-link {
         text-decoration: none;
         color: black
+      }
+
+      table {
+        text-align: left;
+        margin: auto;
       }
 
     </style>
@@ -39,10 +50,6 @@
   <body>
   <h1><a href='/' class="header-link">SECRET HACKER</a></h1>
 
-  <% if !logged_in? %>
-    <h2> Let's share some secrets...</h2>
-  <% end %>
-
   <ul style="display: inline;">
   	<% if logged_in? %>
       <%= link_to "Dashboard", dashboard_path %> |
@@ -50,7 +57,10 @@
       <%= link_to "View Secrets", secrets_path %> |
   		<%= link_to "Secrets Leaderboard", users_path %> |
       <%= link_to "Secret Categories", categories_path %> |
-  		<%= link_to "Logout", logout_path %>
+      <% if current_user.admin %>
+      <%= link_to "All Secrets", all_secrets_path %> |
+      <% end %>
+      <%= link_to "Logout", logout_path%>
 		<% end %>
   	<% if !logged_in? %>
       <%= link_to "Home", '/' %> |

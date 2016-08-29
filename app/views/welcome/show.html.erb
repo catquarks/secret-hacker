@@ -1,4 +1,16 @@
-<h3>How about a secret?</h3>
-<strong>Key: </strong>"<%= Key.all.sample.string %>"
-<h6> <i>Enter the above key on your dashboard page to recieve a secret!</i></h6>
 
+
+  <% if !logged_in? %>
+    <h2> Let's share some secrets...</h2>
+    <p>Secret Hacker is a competitive community of secret-seekers. Every time you find a key, enter it to add a new secret to your collection! Try to collect the most secrets!</p>
+  <% end %>
+
+
+<h3>How about a secret?</h3>
+
+<% if !logged_in? || current_user.keys.size < 5 %>
+	<strong>Key: </strong>"<%= Key.all.sample.string %>"
+	<h6> <i>Enter the above key on your dashboard page to recieve a secret!</i></h6>
+<% else %>
+	<p>Go forth and find keys!</p>
+<% end %>
