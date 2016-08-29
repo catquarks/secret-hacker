@@ -39,17 +39,21 @@ class SecretsController < ApplicationController
 	# end
 
 	def show
-		# if Secret.all.any?{|secret| secret.id==params[:id]}
+		# check if secret exists	
+		if Secret.all.any?{|secret| secret.id==params[:id].to_i}
+			# if secret exists, find it
 			@secret=Secret.find(params[:id])
+			# unless current user is an admin, check if they're allowed access
 			unless current_user.admin
+				# show failure page if user has no access
 				unless current_user.key_ids.any?{|id| id==params[:id].to_i}
 					render 'secrets/failure'
 				end
 			end
-		# else
-		# 	flash[:notice]="No such secret!"
-		# 	redirect_to :dashboard
-		# end
+		else
+			flash[:notice]="No such secret!"
+			redirect_to :dashboard
+		end
 	end
 
 
