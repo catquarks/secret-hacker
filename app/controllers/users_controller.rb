@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :update]
-	before_action :must_be_logged_in, only: [:dashboard]
+	before_action :set_user, only: [:show, :edit, :update]
+	before_action :must_be_logged_in, only: [:dashboard, :edit]
 
 	def index
 		@users = User.all
@@ -27,7 +27,10 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		@user=User.find(current_user.id)
+  # binding.pry
+		unless current_user.id == params[:id].to_i
+			redirect_to users_path
+		end
 	end
 
 	def update

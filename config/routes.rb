@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	resources :users, only: [:index, :show, :create, :update]
+	resources :users, only: [:index, :show, :create, :edit, :update]
 	# get '/secrets/destroy', to: 'secrets#destroy', as 'destroy'
 	resources :secrets, only: [:show, :index]
 	resources :keys, only: [:create, :new, :destroy]
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 	post '/signup', to: 'registrations#create', as: 'registrations'
 
 	get '/profile', to: 'users#show', as: 'profile'
-	get '/profile/edit', to: 'users#edit', as: 'edit_profile'
+
 	get '/all_secrets', to: 'secrets#all_secrets'
 
 
