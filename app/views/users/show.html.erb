@@ -2,13 +2,13 @@
 
 <p><strong><% if logged_in? %> Your <% end %>Bio: </strong><%= @user.bio %></p>
 
-<% if session[:user_id] == @user.id %>
+<% if current_user == User.find(params[:id]) %>
   <p> You know <%= @user.known_keys_count %> Secret(s)! Find more keys to get more! </p>
 <% else %>
   <p><strong><%= @user.name %> knows <%= @user.known_keys_count %> Secrets!
-    <% if User.find(session[:user_id]).known_keys_count > @user.known_keys_count %>
+    <% if current_user.known_keys_count > @user.known_keys_count %>
       You know more secrets! Way to go!
-    <% elsif User.find(session[:user_id]).known_keys_count < @user.known_keys_count%>
+    <% elsif current_user.known_keys_count < @user.known_keys_count%>
       They know more Secrets than you! Go find more keys!
     <% else %>
       You know the same number of Secrets! Go find more keys!

@@ -17,7 +17,8 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		if session[:user_id] == @user.id
+  # binding.pry
+		if session[:user_id] == params[:id].to_i
 			redirect_to :dashboard
 		end
 	end
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
 
 	private
 		def set_user
-			@user = User.find(session[:user_id])
+			@user = User.find(params[:id])
 		end
 
 		def user_params
