@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 	resources :users, only: [:index, :show, :create, :update]
-	resources :secrets, only: [:show, :index, :new, :create]
-	resources :keys, only: [:create]
+	resources :secrets, only: [:show, :index]
+	resources :keys, only: [:create, :new]
 	resources :categories, only: [:show, :index]
+
 	post '/key_entry', to: 'keys#acquire'
 
 	root to: 'welcome#show'

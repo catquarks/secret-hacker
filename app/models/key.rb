@@ -4,5 +4,6 @@ class Key < ApplicationRecord
 	has_one :secret
 	validates :string, presence: true
 	validates :string, uniqueness: true
+	accepts_nested_attributes_for :secret
 
 end

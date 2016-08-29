@@ -6,30 +6,28 @@ class SecretsController < ApplicationController
 	def index
 	end
 
-	def new
-		@secret=Secret.new
-		@key=Key.new
-		@categories = Category.all
-	end
+	# def new
+	# 	@secret=Secret.new
+	# 	@key=Key.new
+	# 	@categories = Category.all
+	# end
 
-	def create
-		# binding.pry
-		@key=Key.new(key_params)
-  # binding.pry
-		@secret=Secret.new(secret_params)
-		@secret.key=@key
-		@category = Category.find(params[:secret][:category_id])
-		@secret.category = @category
+	# def create
+	# 	@secret=Secret.new(secret_params)
+	# 	binding.pry
+	# 	@secret.key=@key
+	# 	@category = Category.find(params[:secret][:category_id])
+	# 	@secret.category = @category
+	#
+	# 	if @secret.save && @key.save && @category.save
+	# 		current_user.keys<<@key
+	#
+	# 		redirect_to :dashboard
+	# 	else
+	# 		render :new
+	# 	end
 
-		if @secret.save && @key.save && @category.save
-			current_user.keys<<@key
-
-			redirect_to :dashboard
-		else
-			render :new
-		end
-
-	end
+	# end
 
 	def show
 		@secret=Secret.find(params[:id])
@@ -43,11 +41,11 @@ class SecretsController < ApplicationController
 	private
 
 	def secret_params
-		params.require(:secret).permit(:content, :key, :category_id)
+		params.require(:secret).permit(:content, :category_id, key: [:string])
 	end
 
-	def key_params
-		params.require(:key).permit(:string)
-	end
+	# def key_params
+	# 	params.require(:key).permit(:string)
+	# end
 
 end

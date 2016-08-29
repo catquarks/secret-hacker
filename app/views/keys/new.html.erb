@@ -1,0 +1,13 @@
+<h1>Create a Secret</h1>
+
+<%= form_for @key do |f| %>
+<%= f.fields_for :secret, Secret.new do |secret| %>
+  <%= secret.label "Secret Text" %>:
+  <%= secret.text_area :content %> <br>
+  <%= secret.label :category %>
+  <%= secret.collection_select :category_id, Category.all, :id, :name %> <br>
+<% end %>
+<%= f.label "Key" %>:
+<%= f.text_field :string %> <br>
+<%= f.submit %>
+<% end %>

@@ -19,4 +19,31 @@ class KeysController < ApplicationController
     end
   end
 
+
+  def new
+    # @secret=Secret.new
+    @key=Key.new
+  end
+
+  def create
+    @key=Key.new(key_params)
+    @secret=@key.secret
+    @secret.key=@key
+    @category = Category.find(key_params[:secret_attributes][:category_id])
+    @secret.category = @category
+		if @key.save && @secret.save && @category.save
+  			current_user.keys<<@key
+        flash[:notice]= "You created a new secret!"
+  			redirect_to secret_path(@secret)
+    else
+      render :new
+		end
+  end
+
+  private
+
+  def key_params
+      params.require(:key).permit(:string, :secret_attributes => [:content, :category_id])
+  end
+
 end
